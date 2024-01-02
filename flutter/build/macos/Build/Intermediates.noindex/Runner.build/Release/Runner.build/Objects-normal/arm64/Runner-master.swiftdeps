@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "198d8ae979a81ead2ee6ab9e55581a4f9de937c71b5dd2cc8b67b88349048ca0"
+build_start_time: [1692081218, 545034885]
+build_end_time: [1692081222, 300899028]
+inputs:
+  "/Users/nightshrine/development/rhythearch/macos/Flutter/GeneratedPluginRegistrant.swift": [1692081201, 806866168]
+  "/Users/nightshrine/development/rhythearch/macos/Runner/AppDelegate.swift": [1675961070, 0]
+  "/Users/nightshrine/development/rhythearch/macos/Runner/MainFlutterWindow.swift": [1675961070, 0]

@@ -1,0 +1,12 @@
+{
+    "cmake.sourceDirectory": "/Users/nightshrine/development/rhythearch/linux",
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "root",
+            "database": "${workspaceFolder:rhythearch}/backend/database/database.sqlite"
+        }
+    ]
+}
