@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'common/url.dart';
 import 'common/select_list.dart';
 import 'common/search_option.dart';
+import 'common/max_value.dart';
 
 // 検索結果の音リスト
 var musicList = [];
@@ -18,7 +19,7 @@ class Search extends StatefulWidget {
 class _RhythearchAppState extends State<Search> {
   List<int> rhythm = [];
   bool isRecording = false;
-  late DateTime lastButtonPressTime;
+  late DateTime startTime;
 
   bool isButtonVisible = false;
 
@@ -32,7 +33,6 @@ class _RhythearchAppState extends State<Search> {
   @override
   void initState() {
     super.initState();
-    lastButtonPressTime = DateTime.now();
   }
 
   void _onButtonPress() {
@@ -41,17 +41,16 @@ class _RhythearchAppState extends State<Search> {
       DateTime now = DateTime.now();
       setState(() {
         isRecording = true;
-        lastButtonPressTime = now;
+        startTime = now;
       });
       return;
     }
     // 30個未満の差分データである場合は、差分データを追加
     if (rhythm.length < 30) {
       DateTime now = DateTime.now();
-      int interval = now.difference(lastButtonPressTime).inMilliseconds;
+      int startTimeDiff = now.difference(startTime).inMilliseconds;
       setState(() {
-        rhythm.add(interval);
-        lastButtonPressTime = now;
+        rhythm.add(startTimeDiff);
       });
     } else {
       // TODO: 検索をしてくれるように指示
@@ -66,6 +65,11 @@ class _RhythearchAppState extends State<Search> {
   }
 
   Future<void> getMusic() async {
+    if (rhythm[rhythm.length - 1] > maxTime) {
+      rhythm = [];
+      // TODO: エラー表示
+      return;
+    }
     _voiceType = otherToText(_voiceType, _voiceFieldController);
     _category = otherToText(_category, _categoryFieldController);
     _soundType = otherToText(_soundType, _soundFieldController);
@@ -365,22 +369,39 @@ class _RhythearchAppState extends State<Search> {
                                 itemCount: musicList.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return (index == 1)
-                                      ? const Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 50.0, bottom: 20.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '↓他の候補曲↓',
-                                                style: TextStyle(
-                                                  fontSize: 20.0,
-                                                  color: Colors.grey,
-                                                ),
+                                      ? Column(
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 50.0, bottom: 20.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    '↓他の候補曲↓',
+                                                    style: TextStyle(
+                                                      fontSize: 20.0,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                            Card(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ListTile(
+                                                    title: Text(musicList[index]
+                                                        ['title']),
+                                                    subtitle: Text(
+                                                        musicList[index]
+                                                            ['artist']),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         )
                                       : Card(
                                           child: Column(

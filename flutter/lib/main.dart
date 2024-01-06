@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rhythearch/search.dart';
-import 'package:rhythearch/add_music.dart';
+import 'package:rhythearch/add_rhythm.dart';
 import 'package:rhythearch/profile.dart';
 
 void main() {
@@ -24,7 +24,7 @@ class MyApp extends StatefulWidget {
 class _RhythearchAppState extends State<MyApp> with TickerProviderStateMixin {
   static List<Widget> tabs = <Widget>[
     const Search(),
-    const AddMusic(),
+    const AddRhythm(),
     const Profile(),
   ];
   int currentIndex = 0;

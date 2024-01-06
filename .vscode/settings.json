@@ -1,5 +1,5 @@
 {
-    "cmake.sourceDirectory": "/Users/nightshrine/development/rhythearch/linux",
+    "cmake.sourceDirectory": "/Users/nightshrine/development/rhythearch/flutter/linux",
     "sqltools.useNodeRuntime": true,
     "sqltools.connections": [
         {
